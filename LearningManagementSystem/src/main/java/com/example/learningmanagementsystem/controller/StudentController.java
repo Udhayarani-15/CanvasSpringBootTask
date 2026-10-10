@@ -1,0 +1,43 @@
+package com.example.learningmanagementsystem.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.learningmanagementsystem.entity.Student;
+import com.example.learningmanagementsystem.service.StudentService;
+
+
+@RestController
+@RequestMapping("/student")
+public class StudentController {
+	@Autowired
+	StudentService serv;
+	@GetMapping
+     public List<Student> get() {
+    	 return serv.get();
+     }
+	@PostMapping
+	public Student add(@RequestBody Student stu) {
+		return serv.add(stu);
+	}
+	
+	@DeleteMapping("/{id}")
+    public String del(@PathVariable Long id) {
+    	serv.del(id);
+    	return "Deleted Successfully";
+    }
+	
+	@PutMapping("/{id}")
+	public Student update(@PathVariable Long id,@RequestBody Student stu) {
+		return serv.update(id, stu);
+	}
+}

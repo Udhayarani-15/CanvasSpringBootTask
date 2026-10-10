@@ -1,0 +1,16 @@
+package com.example.studentmanagement.controller;
+
+public class AuthController {
+   
+	@Autowired
+	private AuthService authService;
+	@PostMapping("/register")
+	public String register(@RequestBody RegisterRequestDTO request) {
+		return authService.register(request);
+	}
+	
+	@PostMapping("/login")
+	public String login(@RequestBody LoginRequestDTO request) {
+		return authService.login(request);
+	}
+}

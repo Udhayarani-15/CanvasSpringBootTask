@@ -1,0 +1,7 @@
+package com.example.studentmanagement.mapper;
+
+@Mapper(componentModel = "spring")
+public interface StudentMapper {
+     StudentDTO toDTO(Student stu);
+     Student toEntity(StudentDTO dto);
+}

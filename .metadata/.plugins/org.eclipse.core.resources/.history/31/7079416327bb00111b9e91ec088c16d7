@@ -1,0 +1,5 @@
+package com.example.studentmanagement.mapper;
+
+public interface TeacherMapper {
+
+}

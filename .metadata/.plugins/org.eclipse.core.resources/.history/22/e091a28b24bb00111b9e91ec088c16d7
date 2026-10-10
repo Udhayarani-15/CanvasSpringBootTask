@@ -1,0 +1,39 @@
+package com.example.studentmanagement.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.studentmanagement.dto.StudentDTO;
+import com.example.studentmanagement.entity.Student;
+import com.example.studentmanagement.mapper.StudentMapper;
+import com.example.studentmanagement.repository.StudentRepository;
+@Service
+public class StudentService {
+    @Autowired
+    StudentRepository repo;
+    
+    StudentMapper mapper;
+    public List<StudentDTO> getA(){
+    	List<Student> students = repo.findAll();
+    	return students.stream()
+    			.map(mapper::toDTO)
+    			.toList();
+    }
+    public Student add(Student stu) {
+		return repo.save(stu);
+	}
+    public String del(Long id) {
+    	repo.deleteById(id);
+    	return "Deleted Successfully";
+    }
+    public Student update(Long id,Student stu) {
+    	Student s = repo.findById(id).orElseThrow(()->new RuntimeException("Student is not Found"));
+    	s.setName(stu.getName());
+    	s.setAge(stu.getAge());
+    	s.setDepartment(stu.getDepartment());
+    	s.setPhno(stu.getPhno());
+    	return repo.save(s);
+    }
+}
